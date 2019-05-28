@@ -20,6 +20,27 @@ final class Configuration implements ConfigurationInterface
             $rootNode = $treeBuilder->root('setono_sylius_fragment_translation');
         }
 
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('resources')
+                    ->requiresAtLeastOneElement()
+                    ->useAttributeAsKey('name')
+                    ->arrayPrototype()
+                        ->fixXmlConfig('property')
+                        ->children()
+                            ->scalarNode('name')->end()
+                            ->arrayNode('properties')
+                                ->requiresAtLeastOneElement()
+                                ->scalarPrototype()->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
+
         return $treeBuilder;
     }
 }

@@ -16,6 +16,8 @@ final class SetonoSyliusFragmentTranslationExtension extends Extension
         $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
+        $container->setParameter('setono_sylius_fragment_translation.resources', $config['resources']);
+
         $loader->load('services.xml');
     }
 }
