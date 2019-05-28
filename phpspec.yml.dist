@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: Setono\SyliusFragmentTranslationPlugin
+        psr4_prefix: Setono\SyliusFragmentTranslationPlugin
