@@ -1,0 +1,3 @@
+setono_sylius_fragment_translation_admin:
+    resource: routing/admin.yaml
+    prefix: /admin

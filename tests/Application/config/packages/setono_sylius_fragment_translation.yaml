@@ -1,7 +1,6 @@
 setono_sylius_fragment_translation:
-    resources:
+    resource_translations:
         -
-            name: sylius.product_translation
+            name: sylius.product
             properties:
                 - name
-                - description

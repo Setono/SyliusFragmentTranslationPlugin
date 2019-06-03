@@ -6,14 +6,22 @@ namespace Setono\SyliusFragmentTranslationPlugin;
 
 use Setono\SyliusFragmentTranslationPlugin\DependencyInjection\Compiler\RegisterResourceTranslationsPass;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
+use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
+use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class SetonoSyliusFragmentTranslationPlugin extends Bundle
+final class SetonoSyliusFragmentTranslationPlugin extends AbstractResourceBundle
 {
     use SyliusPluginTrait;
 
-    public function build(ContainerBuilder $container)
+    public function getSupportedDrivers(): array
+    {
+        return [
+            SyliusResourceBundle::DRIVER_DOCTRINE_ORM,
+        ];
+    }
+
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
 

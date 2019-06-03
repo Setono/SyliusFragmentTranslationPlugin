@@ -7,15 +7,13 @@ namespace Setono\SyliusFragmentTranslationPlugin\Message\Handler;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\MappingException;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use RuntimeException;
-use Setono\SyliusFragmentTranslationPlugin\Message\Command\ProcessResourceTranslation;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\ProcessResourceTranslationBatch;
+use Setono\SyliusFragmentTranslationPlugin\Message\Command\TranslateResourceTranslation;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class ProcessResourceTranslationHandler implements MessageHandlerInterface
+final class ProcessResourceTranslationBatchHandler implements MessageHandlerInterface
 {
     /**
      * @var ManagerRegistry
@@ -34,12 +32,11 @@ final class ProcessResourceTranslationHandler implements MessageHandlerInterface
     }
 
     /**
-     * @param ProcessResourceTranslation $message
+     * @param ProcessResourceTranslationBatch $message
      *
      * @throws MappingException
-     * @throws NonUniqueResultException
      */
-    public function __invoke(ProcessResourceTranslation $message): void
+    public function __invoke(ProcessResourceTranslationBatch $message): void
     {
         $resourceTranslation = $message->getResourceTranslation();
 
@@ -55,25 +52,16 @@ final class ProcessResourceTranslationHandler implements MessageHandlerInterface
         $qb = $manager->createQueryBuilder();
         $qb->select('o.' . $metaData->getSingleIdentifierFieldName())
             ->from($resourceTranslation->getClass(), 'o')
+            ->andWhere('o.id >= :offset')
             ->orderBy('o.id')
-            ->setMaxResults(1)
+            ->setMaxResults($message->getLimit())
+            ->setParameter('offset', $message->getOffsetId())
         ;
 
-        $offset = 0;
-        $limit = 5;
+        $objects = $qb->getQuery()->getResult();
 
-        do {
-            $qb->setFirstResult($offset);
-
-            try {
-                $id = (int) $qb->getQuery()->getSingleScalarResult();
-
-                $this->messageBus->dispatch(new ProcessResourceTranslationBatch($resourceTranslation, $id, $limit));
-            } catch (NoResultException $exception) {
-                $id = null;
-            }
-
-            $offset += $limit;
-        } while (null !== $id);
+        foreach ($objects as $object) {
+            $this->messageBus->dispatch(new TranslateResourceTranslation($resourceTranslation, $object['id']));
+        }
     }
 }

@@ -1,0 +1,17 @@
+setono_sylius_fragment_translation:
+    form:
+        fragment_translation:
+            case_sensitive: Case sensitive
+            locale: Locale (target)
+            regex: Regular expression
+            replace: Replace string (can contain backreferences)
+            search: Search string (can contain regex)
+    ui:
+        edit_fragment_translation: Edit fragment translation
+        fragment_translations: Fragment translations
+        locale: Locale (target)
+        manage_fragment_translations: Manage fragment translations
+        new_fragment_translation: New fragment_translation
+        replace: Replace string
+        search: Search string
+        

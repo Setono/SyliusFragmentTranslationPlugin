@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusFragmentTranslationPlugin\DependencyInjection\Compiler;
 
 use Setono\SyliusFragmentTranslationPlugin\Translation\ResourceTranslation;
-use Sylius\Component\Resource\Model\TranslationInterface;
+use Sylius\Component\Resource\Model\TranslatableInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -16,52 +16,60 @@ final class RegisterResourceTranslationsPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if(!$container->hasParameter('sylius.resources')) {
+        if (!$container->hasParameter('sylius.resources')) {
             return;
         }
 
-        if (!$container->hasParameter('setono_sylius_fragment_translation.resources')) {
+        if (!$container->hasParameter('setono_sylius_fragment_translation.resource_translations')) {
             return;
         }
 
-        if (!$container->has('setono_sylius_fragment_translation.registry.resource_translation')) {
+        if (!$container->hasDefinition('setono_sylius_fragment_translation.registry.resource_translation')) {
             return;
         }
 
         $registeredResources = $container->getParameter('sylius.resources');
-        $resources = $container->getParameter('setono_sylius_fragment_translation.resources');
+        $resourceTranslations = $container->getParameter('setono_sylius_fragment_translation.resource_translations');
         $resourceTranslationRegistry = $container->getDefinition('setono_sylius_fragment_translation.registry.resource_translation');
 
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
-        foreach ($resources as $resource => $resourceData) {
-            $properties = $resourceData['properties'];
+        foreach ($resourceTranslations as $resource => $resourceTranslation) {
+            $properties = $resourceTranslation['properties'];
 
-            if(!isset($registeredResources[$resource])) {
-                throw new \InvalidArgumentException(sprintf('The resource %s does not exist', $resource)); // todo better exception
+            if (!isset($registeredResources[$resource])) {
+                throw new ResourceNotFoundException($resource);
             }
 
+            /** @var string|null $model */
             $model = $registeredResources[$resource]['classes']['model'] ?? null;
 
-            if(null === $model) {
-                continue;
+            if (null === $model) {
+                throw new NoModelClassSetException($resource);
             }
 
-            if(!is_a($model, TranslationInterface::class, true)) {
-                throw new \InvalidArgumentException(sprintf('The class %s does not implement %s', $model, TranslationInterface::class)); // todo better exception
+            if (!is_a($model, TranslatableInterface::class, true)) {
+                throw new TranslatableResourceExpectedException($model);
             }
 
-            $obj = new $model;
+            /** @var string|null $translationModel */
+            $translationModel = $registeredResources[$resource]['translation']['classes']['model'] ?? null;
+
+            if (null === $translationModel) {
+                throw new NoModelClassSetException($resource, true);
+            }
+
+            $obj = new $translationModel();
             foreach ($properties as $property) {
-                if(!$propertyAccessor->isReadable($obj, $property)) {
-                    throw new \InvalidArgumentException(sprintf('The property %s on resource %s is not readable', $property, $resource)); // todo better exception
+                if (!$propertyAccessor->isReadable($obj, $property)) {
+                    throw new UnreadablePropertyException($translationModel, $property);
                 }
             }
 
             $serviceId = 'setono_sylius_fragment_translation.resource_translation.' . $resource;
 
             $container->setDefinition($serviceId, new Definition(ResourceTranslation::class, [
-                $resource, $model, $properties
+                $resource, $model, $properties,
             ]));
 
             $resourceTranslationRegistry->addMethodCall('register', [new Reference($serviceId)]);

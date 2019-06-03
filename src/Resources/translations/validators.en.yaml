@@ -1,0 +1,8 @@
+setono_sylius_fragment_translation:
+    fragment_translation:
+        locale:
+            not_blank: Locale cannot be blank.
+        search:
+            not_blank: Search string cannot be blank.
+        replace:
+            not_blank: Replace string cannot be blank.

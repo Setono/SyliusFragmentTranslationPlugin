@@ -8,7 +8,7 @@
         "php": "^7.2",
 
         "sylius/sylius": "^1.4",
-        "symfony/messenger": "^4.2"
+        "symfony/messenger": "^4.3"
     },
     "require-dev": {
         "behat/behat": "^3.4",
@@ -38,6 +38,7 @@
         "symfony/web-server-bundle": "^3.4|^4.1"
     },
     "conflict": {
+        "symfony/doctrine-bridge": "4.3.0",
         "symfony/symfony": "4.1.8",
         "symfony/browser-kit": "4.1.8",
         "symfony/dependency-injection": "4.1.8",
@@ -58,5 +59,20 @@
         "branch-alias": {
             "dev-master": "1.0-dev"
         }
+    },
+    "scripts": {
+        "analyse": [
+            "@ensure-test-container-exists",
+            "./vendor/bin/phpstan analyse -c phpstan.neon -l max src"
+        ],
+        "check-style": "vendor/bin/ecs check --ansi src",
+        "ensure-test-container-exists": "[[ -f tests/Application/var/cache/test/ApplicationTests_Setono_SyliusFragmentTranslationPlugin_Application_KernelTestDebugContainer.xml ]] || (cd tests/Application && php -d memory_limit=-1 bin/console cache:clear --env=test)",
+        "fix-style": "vendor/bin/ecs check --ansi src --fix",
+        "phpspec": "vendor/bin/phpspec run --ansi",
+        "phpunit": "vendor/bin/phpunit",
+        "test": [
+            "@phpunit",
+            "@phpspec"
+        ]
     }
 }

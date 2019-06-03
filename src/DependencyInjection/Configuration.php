@@ -5,6 +5,13 @@ declare(strict_types=1);
 namespace Setono\SyliusFragmentTranslationPlugin\DependencyInjection;
 
 use function method_exists;
+use Setono\SyliusFragmentTranslationPlugin\Form\Type\FragmentTranslationType;
+use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslation;
+use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslationInterface;
+use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
+use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
+use Sylius\Component\Resource\Factory\Factory;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -23,7 +30,14 @@ final class Configuration implements ConfigurationInterface
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
-                ->arrayNode('resources')
+                ->scalarNode('driver')->defaultValue(SyliusResourceBundle::DRIVER_DOCTRINE_ORM)->end()
+                ->scalarNode('locale')
+                    ->cannotBeEmpty()
+                    ->defaultValue('%locale%')
+                    ->info('This is the locale considered the base locale for this plugin. I.e. the source locale for translations')
+                    ->example('en_US')
+                ->end()
+                ->arrayNode('resource_translations')
                     ->requiresAtLeastOneElement()
                     ->useAttributeAsKey('name')
                     ->arrayPrototype()
@@ -40,7 +54,41 @@ final class Configuration implements ConfigurationInterface
             ->end()
         ;
 
+        $this->addResourcesSection($rootNode);
 
         return $treeBuilder;
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addResourcesSection(ArrayNodeDefinition $node): void
+    {
+        $node
+            ->children()
+                ->arrayNode('resources')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('fragment_translation')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->variableNode('options')->end()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('model')->defaultValue(FragmentTranslation::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('interface')->defaultValue(FragmentTranslationInterface::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('repository')->end()
+                                        ->scalarNode('factory')->defaultValue(Factory::class)->end()
+                                        ->scalarNode('form')->defaultValue(FragmentTranslationType::class)->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 }

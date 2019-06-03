@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslation">
+        <property name="locale">
+            <constraint name="NotBlank">
+                <option name="message">setono_sylius_fragment_translation.fragment_translation.locale.not_blank</option>
+                <option name="groups">
+                    <value>setono_sylius_fragment_translation</value>
+                </option>
+            </constraint>
+            <!-- todo create validator that validates that the locale does not equal the plugins base locale -->
+        </property>
+        <property name="search">
+            <constraint name="NotBlank">
+                <option name="message">setono_sylius_fragment_translation.fragment_translation.search.not_blank</option>
+                <option name="groups">
+                    <value>setono_sylius_fragment_translation</value>
+                </option>
+            </constraint>
+        </property>
+        <property name="replace">
+            <constraint name="NotBlank">
+                <option name="message">setono_sylius_fragment_translation.fragment_translation.replace.not_blank</option>
+                <option name="groups">
+                    <value>setono_sylius_fragment_translation</value>
+                </option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

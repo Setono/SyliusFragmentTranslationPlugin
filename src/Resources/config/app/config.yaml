@@ -1,0 +1,2 @@
+imports:
+    - "@SetonoSyliusFragmentTranslationPlugin/Resources/config/grids/setono_sylius_fragment_translation_admin_fragment_translation.yaml"

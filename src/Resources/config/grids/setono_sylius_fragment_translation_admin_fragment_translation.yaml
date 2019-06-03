@@ -1,0 +1,26 @@
+sylius_grid:
+    grids:
+        setono_sylius_fragment_translation_admin_fragment_translation:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%setono_sylius_fragment_translation.model.fragment_translation.class%"
+            fields:
+                locale:
+                    type: string
+                    label: setono_sylius_fragment_translation.ui.locale
+                search:
+                    type: string
+                    label: setono_sylius_fragment_translation.ui.search
+                replace:
+                    type: string
+                    label: setono_sylius_fragment_translation.ui.replace
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

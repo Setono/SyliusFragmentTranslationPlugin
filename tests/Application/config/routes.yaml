@@ -1,0 +1,2 @@
+setono_sylius_fragment_translation:
+    resource: "@SetonoSyliusFragmentTranslationPlugin/Resources/config/routing.yaml"

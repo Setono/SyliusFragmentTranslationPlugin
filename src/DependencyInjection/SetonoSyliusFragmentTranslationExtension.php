@@ -4,20 +4,28 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\DependencyInjection;
 
+use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-final class SetonoSyliusFragmentTranslationExtension extends Extension
+final class SetonoSyliusFragmentTranslationExtension extends AbstractResourceExtension
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Exception
+     */
     public function load(array $config, ContainerBuilder $container): void
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
-        $container->setParameter('setono_sylius_fragment_translation.resources', $config['resources']);
+        $container->setParameter('setono_sylius_fragment_translation.locale', $config['locale']);
+        $container->setParameter('setono_sylius_fragment_translation.resource_translations', $config['resource_translations']);
 
         $loader->load('services.xml');
+
+        $this->registerResources('setono_sylius_fragment_translation', $config['driver'], $config['resources'], $container);
     }
 }
