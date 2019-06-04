@@ -21,6 +21,7 @@ final class RegisterResourceTranslationsPass implements CompilerPassInterface
 {
     /**
      * @param ContainerBuilder $container
+     *
      * @throws StringsException
      */
     public function process(ContainerBuilder $container): void

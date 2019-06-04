@@ -13,6 +13,7 @@
         <field name="locale" type="string" />
         <field name="search" type="string" />
         <field name="replace" type="string" />
+        <field name="priority" type="integer" />
         <field name="caseSensitive" type="boolean" />
         <field name="regex" type="boolean" />
     </mapped-superclass>

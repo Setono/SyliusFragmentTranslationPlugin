@@ -35,6 +35,10 @@ interface FragmentTranslationInterface extends ResourceInterface
 
     public function setReplace(string $replace): void;
 
+    public function getPriority(): int;
+
+    public function setPriority(int $priority): void;
+
     public function isCaseSensitive(): bool;
 
     public function setCaseSensitive(bool $caseSensitive): void;

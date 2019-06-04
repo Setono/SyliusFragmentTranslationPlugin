@@ -15,7 +15,9 @@ final class Replacer implements ReplacerInterface
      * @param string $replace
      * @param bool $caseSensitive
      * @param bool $regex
+     *
      * @return Result
+     *
      * @throws PcreException
      */
     public function replace(string $str, string $search, string $replace, bool $caseSensitive, bool $regex): Result

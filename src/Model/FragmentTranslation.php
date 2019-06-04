@@ -27,6 +27,11 @@ class FragmentTranslation implements FragmentTranslationInterface
     protected $replace;
 
     /**
+     * @var int
+     */
+    protected $priority = 0;
+
+    /**
      * @var bool
      */
     protected $caseSensitive = false;
@@ -74,6 +79,16 @@ class FragmentTranslation implements FragmentTranslationInterface
     public function setReplace(string $replace): void
     {
         $this->replace = $replace;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): void
+    {
+        $this->priority = $priority;
     }
 
     public function isCaseSensitive(): bool

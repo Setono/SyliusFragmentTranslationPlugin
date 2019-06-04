@@ -12,6 +12,7 @@
         "php": "^7.2",
         "sylius/sylius": "^1.4",
         "symfony/messenger": "^4.3",
+        "symfony/property-access": "^4.1",
         "thecodingmachine/safe": "^0.1.15"
     },
     "conflict": {

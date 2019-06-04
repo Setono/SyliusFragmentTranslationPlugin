@@ -9,6 +9,7 @@ use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -52,6 +53,9 @@ final class FragmentTranslationType extends AbstractResourceType
             ])
             ->add('replace', TextType::class, [
                 'label' => 'setono_sylius_fragment_translation.form.fragment_translation.replace',
+            ])
+            ->add('priority', IntegerType::class, [
+                'label' => 'setono_sylius_fragment_translation.form.fragment_translation.priority',
             ])
             ->add('caseSensitive', CheckboxType::class, [
                 'required' => false,

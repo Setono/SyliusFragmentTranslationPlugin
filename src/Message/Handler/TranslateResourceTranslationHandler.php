@@ -11,6 +11,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use RuntimeException;
 use Safe\Exceptions\StringsException;
+use function Safe\sprintf;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\TranslateResourceTranslation;
 use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslationInterface;
 use Setono\SyliusFragmentTranslationPlugin\Replacer\ReplacerInterface;
@@ -19,7 +20,6 @@ use Sylius\Component\Resource\Model\TranslationInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use function Safe\sprintf;
 
 final class TranslateResourceTranslationHandler implements MessageHandlerInterface
 {
@@ -57,6 +57,7 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
 
     /**
      * @param TranslateResourceTranslation $message
+     *
      * @throws MappingException
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -76,7 +77,13 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
         $metaData = $manager->getClassMetadata($resourceTranslation->getClass());
 
         /** @var FragmentTranslationInterface[] $fragmentTranslations */
-        $fragmentTranslations = $this->fragmentTranslationRepository->findAll();
+        $fragmentTranslations = $this->fragmentTranslationRepository->findBy([], [
+            'priority' => 'desc',
+        ]);
+
+        if (count($fragmentTranslations) === 0) {
+            return;
+        }
 
         $qb = $manager->createQueryBuilder();
         $qb->select('o')
@@ -131,7 +138,7 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
                 );
 
                 if ($replacementResult->replacementsDone()) {
-                    $propertyAccessor->setValue($translation, $property, $val);
+                    $propertyAccessor->setValue($translation, $property, $replacementResult->getReplacedString());
 
                     $obj->addTranslation($translation);
                 }

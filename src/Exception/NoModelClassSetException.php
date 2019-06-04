@@ -12,8 +12,10 @@ final class NoModelClassSetException extends InvalidArgumentException
 {
     /**
      * NoModelClassSetException constructor.
+     *
      * @param string $resource
      * @param bool $translatable
+     *
      * @throws StringsException
      */
     public function __construct(string $resource, bool $translatable = false)

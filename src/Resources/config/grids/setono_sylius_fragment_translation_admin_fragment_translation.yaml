@@ -15,6 +15,9 @@ sylius_grid:
                 replace:
                     type: string
                     label: setono_sylius_fragment_translation.ui.replace
+                priority:
+                    type: string
+                    label: setono_sylius_fragment_translation.ui.priority
             actions:
                 main:
                     create:

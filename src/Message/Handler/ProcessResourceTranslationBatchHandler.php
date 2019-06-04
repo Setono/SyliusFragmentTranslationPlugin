@@ -9,11 +9,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\MappingException;
 use RuntimeException;
 use Safe\Exceptions\StringsException;
+use function Safe\sprintf;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\ProcessResourceTranslationBatch;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\TranslateResourceTranslation;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use function Safe\sprintf;
 
 final class ProcessResourceTranslationBatchHandler implements MessageHandlerInterface
 {
@@ -35,6 +35,7 @@ final class ProcessResourceTranslationBatchHandler implements MessageHandlerInte
 
     /**
      * @param ProcessResourceTranslationBatch $message
+     *
      * @throws MappingException
      * @throws StringsException
      */

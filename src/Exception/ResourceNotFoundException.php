@@ -12,7 +12,9 @@ final class ResourceNotFoundException extends InvalidArgumentException
 {
     /**
      * ResourceNotFoundException constructor.
+     *
      * @param string $resource
+     *
      * @throws StringsException
      */
     public function __construct(string $resource)
