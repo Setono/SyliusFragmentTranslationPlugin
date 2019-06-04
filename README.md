@@ -109,5 +109,5 @@ setono_sylius_fragment_translation:
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/Setono/SyliusFragmentTranslationPlugin.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/setono/sylius-fragment-translation-plugin
-[link-travis]: https://travis-ci.org/Setono/SyliusFragmentTranslationPlugin
+[link-travis]: https://travis-ci.com/Setono/SyliusFragmentTranslationPlugin
 [link-code-quality]: https://scrutinizer-ci.com/g/Setono/SyliusFragmentTranslationPlugin
