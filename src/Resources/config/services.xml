@@ -7,5 +7,6 @@
         <import resource="services/menu.xml"/>
         <import resource="services/message.xml"/>
         <import resource="services/registry.xml"/>
+        <import resource="services/replacer.xml"/>
     </imports>
 </container>

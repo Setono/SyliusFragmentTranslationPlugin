@@ -11,7 +11,7 @@ setono_sylius_fragment_translation:
         fragment_translations: Fragment translations
         locale: Locale (target)
         manage_fragment_translations: Manage fragment translations
-        new_fragment_translation: New fragment_translation
+        new_fragment_translation: New fragment translation
         replace: Replace string
         search: Search string
         

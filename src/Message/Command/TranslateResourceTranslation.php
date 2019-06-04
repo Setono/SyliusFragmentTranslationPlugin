@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\Message\Command;
 
-use Setono\SyliusFragmentTranslationPlugin\Translation\ResourceTranslation;
+use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslation;
 
-final class TranslateResourceTranslation
+final class TranslateResourceTranslation implements CommandInterface
 {
     /**
      * @var ResourceTranslation

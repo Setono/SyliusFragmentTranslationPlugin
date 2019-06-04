@@ -10,13 +10,16 @@ use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use RuntimeException;
+use Safe\Exceptions\StringsException;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\TranslateResourceTranslation;
 use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslationInterface;
+use Setono\SyliusFragmentTranslationPlugin\Replacer\ReplacerInterface;
 use Sylius\Component\Resource\Model\TranslatableInterface;
 use Sylius\Component\Resource\Model\TranslationInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use function Safe\sprintf;
 
 final class TranslateResourceTranslationHandler implements MessageHandlerInterface
 {
@@ -31,23 +34,33 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
     private $fragmentTranslationRepository;
 
     /**
+     * @var ReplacerInterface
+     */
+    private $replacer;
+
+    /**
      * @var string
      */
     private $baseLocale;
 
-    public function __construct(ManagerRegistry $managerRegistry, RepositoryInterface $fragmentTranslationRepository, string $baseLocale)
-    {
+    public function __construct(
+        ManagerRegistry $managerRegistry,
+        RepositoryInterface $fragmentTranslationRepository,
+        ReplacerInterface $replacer,
+        string $baseLocale
+    ) {
         $this->managerRegistry = $managerRegistry;
         $this->fragmentTranslationRepository = $fragmentTranslationRepository;
+        $this->replacer = $replacer;
         $this->baseLocale = $baseLocale;
     }
 
     /**
      * @param TranslateResourceTranslation $message
-     *
      * @throws MappingException
      * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws StringsException
      */
     public function __invoke(TranslateResourceTranslation $message): void
     {
@@ -100,22 +113,27 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
         foreach ($fragmentTranslations as $fragmentTranslation) {
             $translation = $targets[$fragmentTranslation->getLocale()] ?? null;
             if (null === $translation) {
-                continue;
+                /** @var TranslationInterface $translation */
+                $translation = clone $source;
+                $translation->setLocale($fragmentTranslation->getLocale());
+                $targets[$fragmentTranslation->getLocale()] = $translation;
             }
 
             foreach ($resourceTranslation->getProperties() as $property) {
                 $val = $propertyAccessor->getValue($source, $property);
 
-                if ($fragmentTranslation->isRegex()) {
-                    $val = preg_replace('#' . $fragmentTranslation->getSearch() . '#' . ($fragmentTranslation->isCaseSensitive() ? '' : 'i'), $fragmentTranslation->getReplace(), $val, -1, $count);
-                } elseif ($fragmentTranslation->isCaseSensitive()) {
-                    $val = str_replace($fragmentTranslation->getSearch(), $fragmentTranslation->getReplace(), $val, $count);
-                } else {
-                    $val = str_ireplace($fragmentTranslation->getSearch(), $fragmentTranslation->getReplace(), $val, $count);
-                }
+                $replacementResult = $this->replacer->replace(
+                    $val,
+                    $fragmentTranslation->getSearch(),
+                    $fragmentTranslation->getReplace(),
+                    $fragmentTranslation->isCaseSensitive(),
+                    $fragmentTranslation->isRegex()
+                );
 
-                if ($count > 0) {
+                if ($replacementResult->replacementsDone()) {
                     $propertyAccessor->setValue($translation, $property, $val);
+
+                    $obj->addTranslation($translation);
                 }
             }
         }

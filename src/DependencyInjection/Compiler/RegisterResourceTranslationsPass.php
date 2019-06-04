@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\DependencyInjection\Compiler;
 
-use Setono\SyliusFragmentTranslationPlugin\Translation\ResourceTranslation;
+use Safe\Exceptions\StringsException;
+use Setono\SyliusFragmentTranslationPlugin\Exception\NoModelClassSetException;
+use Setono\SyliusFragmentTranslationPlugin\Exception\ResourceNotFoundException;
+use Setono\SyliusFragmentTranslationPlugin\Exception\TranslatableResourceExpectedException;
+use Setono\SyliusFragmentTranslationPlugin\Exception\UnreadablePropertyException;
+use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslation;
 use Sylius\Component\Resource\Model\TranslatableInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,6 +19,10 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 final class RegisterResourceTranslationsPass implements CompilerPassInterface
 {
+    /**
+     * @param ContainerBuilder $container
+     * @throws StringsException
+     */
     public function process(ContainerBuilder $container): void
     {
         if (!$container->hasParameter('sylius.resources')) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\Registry;
 
-use Setono\SyliusFragmentTranslationPlugin\Translation\ResourceTranslation;
+use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslation;
 
 interface ResourceTranslationRegistryInterface
 {

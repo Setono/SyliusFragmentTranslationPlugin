@@ -1,2 +1,14 @@
 default:
     suites:
+        managing_fragment_translations:
+            contexts:
+                - sylius.behat.context.hook.doctrine_orm
+                - sylius.behat.context.setup.channel
+                - sylius.behat.context.setup.admin_security
+                - sylius.behat.context.setup.locale
+                - sylius.behat.context.ui.admin.notification
+
+                - setono_sylius_fragment_translation.behat.context.setup.fragment_translation
+                - setono_sylius_fragment_translation.behat.context.ui.admin.managing_fragment_translations
+            filters:
+                tags: "@managing_fragment_translations && @ui"

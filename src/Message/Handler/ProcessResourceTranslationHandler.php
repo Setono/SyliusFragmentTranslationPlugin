@@ -10,10 +10,12 @@ use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use RuntimeException;
+use Safe\Exceptions\StringsException;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\ProcessResourceTranslation;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\ProcessResourceTranslationBatch;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use function Safe\sprintf;
 
 final class ProcessResourceTranslationHandler implements MessageHandlerInterface
 {
@@ -35,9 +37,9 @@ final class ProcessResourceTranslationHandler implements MessageHandlerInterface
 
     /**
      * @param ProcessResourceTranslation $message
-     *
      * @throws MappingException
      * @throws NonUniqueResultException
+     * @throws StringsException
      */
     public function __invoke(ProcessResourceTranslation $message): void
     {

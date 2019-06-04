@@ -17,6 +17,7 @@
         <service id="setono_sylius_fragment_translation.message_handler.translate_resource_translation" class="Setono\SyliusFragmentTranslationPlugin\Message\Handler\TranslateResourceTranslationHandler">
             <argument type="service" id="doctrine"/>
             <argument type="service" id="setono_sylius_fragment_translation.repository.fragment_translation"/>
+            <argument type="service" id="setono_sylius_fragment_translation.replacer.default"/>
             <argument>%setono_sylius_fragment_translation.locale%</argument>
             <tag name="messenger.message_handler"/>
         </service>
