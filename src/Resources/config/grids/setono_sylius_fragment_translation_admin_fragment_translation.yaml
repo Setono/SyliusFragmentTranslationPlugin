@@ -12,9 +12,9 @@ sylius_grid:
                 search:
                     type: string
                     label: setono_sylius_fragment_translation.ui.search
-                replace:
+                replacement:
                     type: string
-                    label: setono_sylius_fragment_translation.ui.replace
+                    label: setono_sylius_fragment_translation.ui.replacement
                 priority:
                     type: string
                     label: setono_sylius_fragment_translation.ui.priority
