@@ -75,7 +75,7 @@ final class ManagingFragmentTranslationsContext implements Context
      */
     public function iFillTheReplaceString($replacement): void
     {
-        $this->createPage->specifyReplaceString($replacement);
+        $this->createPage->specifyReplacement($replacement);
     }
 
     /**
@@ -97,7 +97,7 @@ final class ManagingFragmentTranslationsContext implements Context
             $this->indexPage->isSingleResourceOnPage([
                 'locale' => $locale,
                 'search' => $search,
-                'replace' => $replacement,
+                'replacement' => $replacement,
             ]),
             sprintf('Fragment translation (locale: %s, search: %s, replacement: %s) should exist but it does not', $locale, $search, $replacement)
         );
@@ -112,7 +112,7 @@ final class ManagingFragmentTranslationsContext implements Context
         $fragmentTranslation = $this->fragmentTranslationRepository->findOneBy([
             'locale' => $locale,
             'search' => $search,
-            'replace' => $replacement
+            'replacement' => $replacement
         ]);
 
         $this->updatePage->open([

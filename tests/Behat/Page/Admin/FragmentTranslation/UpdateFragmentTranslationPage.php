@@ -18,9 +18,9 @@ class UpdateFragmentTranslationPage extends UpdatePage
         $this->getElement('search')->setValue($val);
     }
 
-    public function specifyReplaceString($val): void
+    public function specifyReplacement($val): void
     {
-        $this->getElement('replace')->setValue($val);
+        $this->getElement('replacement')->setValue($val);
     }
 
     public function getSearch(): string
@@ -33,7 +33,7 @@ class UpdateFragmentTranslationPage extends UpdatePage
         return array_merge(parent::getDefinedElements(), [
             'locale' => '#setono_sylius_fragment_translation_fragment_translation_locale',
             'search' => '#setono_sylius_fragment_translation_fragment_translation_search',
-            'replace' => '#setono_sylius_fragment_translation_fragment_translation_replace',
+            'replacement' => '#setono_sylius_fragment_translation_fragment_translation_replacement',
         ]);
     }
 }
