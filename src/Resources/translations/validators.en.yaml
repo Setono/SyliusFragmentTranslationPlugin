@@ -4,5 +4,5 @@ setono_sylius_fragment_translation:
             not_blank: Locale cannot be blank.
         search:
             not_blank: Search string cannot be blank.
-        replace:
+        replacement:
             not_blank: Replace string cannot be blank.

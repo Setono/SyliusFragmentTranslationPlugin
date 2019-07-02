@@ -22,9 +22,9 @@
                 </option>
             </constraint>
         </property>
-        <property name="replace">
+        <property name="replacement">
             <constraint name="NotBlank">
-                <option name="message">setono_sylius_fragment_translation.fragment_translation.replace.not_blank</option>
+                <option name="message">setono_sylius_fragment_translation.fragment_translation.replacement.not_blank</option>
                 <option name="groups">
                     <value>setono_sylius_fragment_translation</value>
                 </option>

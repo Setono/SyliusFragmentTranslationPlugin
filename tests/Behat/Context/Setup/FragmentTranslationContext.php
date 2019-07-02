@@ -28,11 +28,11 @@ final class FragmentTranslationContext implements Context
     }
 
     /**
-     * @Given the store has a fragment translation with locale :locale, search :search, and replace :replace
+     * @Given the store has a fragment translation with locale :locale, search :search, and replacement :replacement
      */
-    public function theStoreHasAFragmentTranslation($locale, $search, $replace): void
+    public function theStoreHasAFragmentTranslation($locale, $search, $replacement): void
     {
-        $obj = $this->create($locale, $search, $replace);
+        $obj = $this->create($locale, $search, $replacement);
 
         $this->save($obj);
     }
@@ -44,7 +44,7 @@ final class FragmentTranslationContext implements Context
 
         $obj->setLocale($locale);
         $obj->setSearch($search);
-        $obj->setReplace($replace);
+        $obj->setReplacement($replace);
 
         return $obj;
     }

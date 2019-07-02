@@ -122,7 +122,7 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
                 $replacementResult = $this->replacer->replace(
                     $val,
                     $fragmentTranslation->getSearch(),
-                    $fragmentTranslation->getReplace(),
+                    $fragmentTranslation->getReplacement(),
                     $fragmentTranslation->isCaseSensitive(),
                     $fragmentTranslation->isRegex()
                 );

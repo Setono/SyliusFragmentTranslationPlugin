@@ -19,8 +19,6 @@ interface FragmentTranslationInterface extends ResourceInterface
 
     /**
      * The string to search for. This can be a regex string
-     *
-     * @return string
      */
     public function getSearch(): ?string;
 
@@ -28,12 +26,10 @@ interface FragmentTranslationInterface extends ResourceInterface
 
     /**
      * The string to replace with. Note that since the search string can be a regex then this string can also contain references
-     *
-     * @return string
      */
-    public function getReplace(): ?string;
+    public function getReplacement(): ?string;
 
-    public function setReplace(string $replace): void;
+    public function setReplacement(string $replacement): void;
 
     public function getPriority(): int;
 

@@ -71,11 +71,11 @@ final class ManagingFragmentTranslationsContext implements Context
     }
 
     /**
-     * @When I fill the replace string with :replace
+     * @When I fill the replacement with :replacement
      */
-    public function iFillTheReplaceString($replace): void
+    public function iFillTheReplaceString($replacement): void
     {
-        $this->createPage->specifyReplaceString($replace);
+        $this->createPage->specifyReplaceString($replacement);
     }
 
     /**
@@ -87,9 +87,9 @@ final class ManagingFragmentTranslationsContext implements Context
     }
 
     /**
-     * @Then the fragment translation with locale :locale, search :search, and replace :replace should appear in the store
+     * @Then the fragment translation with locale :locale, search :search, and replacement :replacement should appear in the store
      */
-    public function theFragmentTranslationShouldAppearInTheStore($locale, $search, $replace): void
+    public function theFragmentTranslationShouldAppearInTheStore($locale, $search, $replacement): void
     {
         $this->indexPage->open();
 
@@ -97,22 +97,22 @@ final class ManagingFragmentTranslationsContext implements Context
             $this->indexPage->isSingleResourceOnPage([
                 'locale' => $locale,
                 'search' => $search,
-                'replace' => $replace,
+                'replace' => $replacement,
             ]),
-            sprintf('Fragment translation (locale: %s, search: %s, replace: %s) should exist but it does not', $locale, $search, $replace)
+            sprintf('Fragment translation (locale: %s, search: %s, replacement: %s) should exist but it does not', $locale, $search, $replacement)
         );
     }
 
     /**
-     * @Given I want to update the fragment translation with locale :locale, search :search, and replace :replace
+     * @Given I want to update the fragment translation with locale :locale, search :search, and replacement :replacement
      */
-    public function iWantToUpdateTheFragmentTranslation($locale, $search, $replace): void
+    public function iWantToUpdateTheFragmentTranslation($locale, $search, $replacement): void
     {
         /** @var ResourceInterface $fragmentTranslation */
         $fragmentTranslation = $this->fragmentTranslationRepository->findOneBy([
             'locale' => $locale,
             'search' => $search,
-            'replace' => $replace
+            'replace' => $replacement
         ]);
 
         $this->updatePage->open([

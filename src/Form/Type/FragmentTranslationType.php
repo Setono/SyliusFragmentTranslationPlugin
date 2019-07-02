@@ -49,8 +49,8 @@ final class FragmentTranslationType extends AbstractResourceType
             ->add('search', TextType::class, [
                 'label' => 'setono_sylius_fragment_translation.form.fragment_translation.search',
             ])
-            ->add('replace', TextType::class, [
-                'label' => 'setono_sylius_fragment_translation.form.fragment_translation.replace',
+            ->add('replacement', TextType::class, [
+                'label' => 'setono_sylius_fragment_translation.form.fragment_translation.replacement',
             ])
             ->add('priority', IntegerType::class, [
                 'label' => 'setono_sylius_fragment_translation.form.fragment_translation.priority',

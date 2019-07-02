@@ -16,7 +16,7 @@ class FragmentTranslation implements FragmentTranslationInterface
     protected $search;
 
     /** @var string */
-    protected $replace;
+    protected $replacement;
 
     /** @var int */
     protected $priority = 0;
@@ -57,14 +57,14 @@ class FragmentTranslation implements FragmentTranslationInterface
         $this->search = $search;
     }
 
-    public function getReplace(): ?string
+    public function getReplacement(): ?string
     {
-        return $this->replace;
+        return $this->replacement;
     }
 
-    public function setReplace(string $replace): void
+    public function setReplacement(string $replacement): void
     {
-        $this->replace = $replace;
+        $this->replacement = $replacement;
     }
 
     public function getPriority(): int

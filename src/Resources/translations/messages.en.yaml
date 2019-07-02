@@ -5,7 +5,7 @@ setono_sylius_fragment_translation:
             locale: Locale (target)
             priority: Priority (notice the highest prioritized will be applied first)
             regex: Regular expression
-            replace: Replace string (can contain backreferences)
+            replacement: Replacement (can contain backreferences)
             search: Search string (can contain regex)
     ui:
         edit_fragment_translation: Edit fragment translation
@@ -13,7 +13,7 @@ setono_sylius_fragment_translation:
         locale: Locale (target)
         manage_fragment_translations: Manage fragment translations
         new_fragment_translation: New fragment translation
-        replace: Replace string
+        replacement: Replacement
         search: Search string
         priority: Priority
         
