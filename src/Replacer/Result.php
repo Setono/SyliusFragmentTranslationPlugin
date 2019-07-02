@@ -6,14 +6,10 @@ namespace Setono\SyliusFragmentTranslationPlugin\Replacer;
 
 final class Result
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $replacedString;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $replacements;
 
     public function __construct(string $replacedString, int $replacements)

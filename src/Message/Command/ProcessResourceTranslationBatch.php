@@ -8,19 +8,13 @@ use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslati
 
 final class ProcessResourceTranslationBatch implements CommandInterface
 {
-    /**
-     * @var ResourceTranslation
-     */
+    /** @var ResourceTranslation */
     private $resourceTranslation;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $offsetId;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $limit;
 
     public function __construct(ResourceTranslation $resourceTranslation, int $offsetId, int $limit)

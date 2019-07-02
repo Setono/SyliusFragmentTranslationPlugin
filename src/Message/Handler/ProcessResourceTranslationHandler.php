@@ -19,14 +19,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class ProcessResourceTranslationHandler implements MessageHandlerInterface
 {
-    /**
-     * @var ManagerRegistry
-     */
+    /** @var ManagerRegistry */
     private $managerRegistry;
 
-    /**
-     * @var MessageBusInterface
-     */
+    /** @var MessageBusInterface */
     private $messageBus;
 
     public function __construct(ManagerRegistry $managerRegistry, MessageBusInterface $messageBus)
@@ -36,8 +32,6 @@ final class ProcessResourceTranslationHandler implements MessageHandlerInterface
     }
 
     /**
-     * @param ProcessResourceTranslation $message
-     *
      * @throws MappingException
      * @throws NonUniqueResultException
      * @throws StringsException
@@ -54,11 +48,12 @@ final class ProcessResourceTranslationHandler implements MessageHandlerInterface
         }
 
         $metaData = $manager->getClassMetadata($resourceTranslation->getClass());
+        $identifier = $metaData->getSingleIdentifierFieldName();
 
         $qb = $manager->createQueryBuilder();
-        $qb->select('o.' . $metaData->getSingleIdentifierFieldName())
+        $qb->select(sprintf('o.%s', $identifier))
             ->from($resourceTranslation->getClass(), 'o')
-            ->orderBy('o.id')
+            ->orderBy(sprintf('o.%s', $identifier))
             ->setMaxResults(1)
         ;
 

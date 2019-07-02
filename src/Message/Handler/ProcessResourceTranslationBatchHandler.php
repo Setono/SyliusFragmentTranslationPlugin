@@ -17,14 +17,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class ProcessResourceTranslationBatchHandler implements MessageHandlerInterface
 {
-    /**
-     * @var ManagerRegistry
-     */
+    /** @var ManagerRegistry */
     private $managerRegistry;
 
-    /**
-     * @var MessageBusInterface
-     */
+    /** @var MessageBusInterface */
     private $messageBus;
 
     public function __construct(ManagerRegistry $managerRegistry, MessageBusInterface $messageBus)
@@ -34,8 +30,6 @@ final class ProcessResourceTranslationBatchHandler implements MessageHandlerInte
     }
 
     /**
-     * @param ProcessResourceTranslationBatch $message
-     *
      * @throws MappingException
      * @throws StringsException
      */

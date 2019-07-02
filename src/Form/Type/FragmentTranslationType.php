@@ -15,9 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class FragmentTranslationType extends AbstractResourceType
 {
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $localeRepository;
 
     public function __construct(string $dataClass, RepositoryInterface $localeRepository, array $validationGroups = [])

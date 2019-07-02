@@ -10,9 +10,7 @@ use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslati
 
 abstract class AbstractCommandSpec extends ObjectBehavior
 {
-    /**
-     * @var ResourceTranslation|null
-     */
+    /** @var ResourceTranslation|null */
     private static $resourceTranslation;
 
     public function it_implements_command_interface(): void

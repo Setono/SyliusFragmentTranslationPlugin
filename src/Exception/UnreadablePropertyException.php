@@ -13,8 +13,6 @@ final class UnreadablePropertyException extends InvalidArgumentException
     /**
      * UnreadablePropertyException constructor.
      *
-     * @param string $class
-     * @param string $property
      *
      * @throws StringsException
      */

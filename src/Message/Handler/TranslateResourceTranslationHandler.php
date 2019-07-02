@@ -23,24 +23,16 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 final class TranslateResourceTranslationHandler implements MessageHandlerInterface
 {
-    /**
-     * @var ManagerRegistry
-     */
+    /** @var ManagerRegistry */
     private $managerRegistry;
 
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $fragmentTranslationRepository;
 
-    /**
-     * @var ReplacerInterface
-     */
+    /** @var ReplacerInterface */
     private $replacer;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $baseLocale;
 
     public function __construct(
@@ -56,8 +48,6 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
     }
 
     /**
-     * @param TranslateResourceTranslation $message
-     *
      * @throws MappingException
      * @throws NoResultException
      * @throws NonUniqueResultException

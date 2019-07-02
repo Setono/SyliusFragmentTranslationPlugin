@@ -8,6 +8,7 @@ use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslati
 
 final class ResourceTranslationRegistry implements ResourceTranslationRegistryInterface
 {
+    /** @var ResourceTranslation[] */
     private $resourceTranslations = [];
 
     public function all(): array

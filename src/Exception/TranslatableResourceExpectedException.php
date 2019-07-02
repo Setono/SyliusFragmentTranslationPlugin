@@ -14,7 +14,6 @@ final class TranslatableResourceExpectedException extends InvalidArgumentExcepti
     /**
      * TranslatableResourceExpectedException constructor.
      *
-     * @param string $class
      *
      * @throws StringsException
      */

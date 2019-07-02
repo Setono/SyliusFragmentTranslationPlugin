@@ -13,8 +13,6 @@ final class NoModelClassSetException extends InvalidArgumentException
     /**
      * NoModelClassSetException constructor.
      *
-     * @param string $resource
-     * @param bool $translatable
      *
      * @throws StringsException
      */

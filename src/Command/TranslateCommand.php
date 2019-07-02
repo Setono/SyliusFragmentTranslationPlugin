@@ -13,14 +13,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class TranslateCommand extends Command
 {
-    /**
-     * @var MessageBusInterface
-     */
+    /** @var MessageBusInterface */
     private $messageBus;
 
-    /**
-     * @var ResourceTranslationRegistryInterface
-     */
+    /** @var ResourceTranslationRegistryInterface */
     private $resourceTranslationRegistry;
 
     public function __construct(MessageBusInterface $messageBus, ResourceTranslationRegistryInterface $resourceTranslationRegistry)
@@ -39,10 +35,12 @@ final class TranslateCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         foreach ($this->resourceTranslationRegistry->all() as $resourceTranslation) {
             $this->messageBus->dispatch(new ProcessResourceTranslation($resourceTranslation));
         }
+
+        return 0;
     }
 }

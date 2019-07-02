@@ -13,7 +13,6 @@ final class ResourceNotFoundException extends InvalidArgumentException
     /**
      * ResourceNotFoundException constructor.
      *
-     * @param string $resource
      *
      * @throws StringsException
      */
