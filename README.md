@@ -92,15 +92,16 @@ $ php bin/console setono:sylius-fragment-translation:translate
 
 If you look in your database you should now have Danish translations for the products with names containing `Sticker` and the names should have been translated into `Klistermærke`.
 
-### Step 3: Setup asynchronous Messenger transport (optional, but recommended)
-If you have configured the Symfony Messenger component with a asynchronous transport, i.e. `amqp` you can define this transport in the config:
-
+### Step 3: Using asynchronous transport (recommended)
 ```yaml
-# config/packages/setono_sylius_fragment_translation.yaml
-setono_sylius_fragment_translation:
+# config/packages/messenger.yaml
+framework:
     messenger:
-        transport: amqp
-``` 
+        routing:
+            # Route all command messages to the async transport
+            # This presumes that you have already set up an 'async' transport
+            'Setono\SyliusFragmentTranslationPlugin\Message\Command\CommandInterface': async
+```
 
 [ico-version]: https://poser.pugx.org/setono/sylius-fragment-translation-plugin/v/stable
 [ico-unstable-version]: https://poser.pugx.org/setono/sylius-fragment-translation-plugin/v/unstable

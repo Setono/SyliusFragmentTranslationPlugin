@@ -4,13 +4,13 @@
     <services>
         <service id="setono_sylius_fragment_translation.message_handler.process_resource_translation" class="Setono\SyliusFragmentTranslationPlugin\Message\Handler\ProcessResourceTranslationHandler">
             <argument type="service" id="doctrine"/>
-            <argument type="service" id="setono_sylius_fragment_translation.messenger.command_bus"/>
+            <argument type="service" id="setono_sylius_fragment_translation.command_bus"/>
             <tag name="messenger.message_handler"/>
         </service>
 
         <service id="setono_sylius_fragment_translation.message_handler.process_resource_translation_batch" class="Setono\SyliusFragmentTranslationPlugin\Message\Handler\ProcessResourceTranslationBatchHandler">
             <argument type="service" id="doctrine"/>
-            <argument type="service" id="setono_sylius_fragment_translation.messenger.command_bus"/>
+            <argument type="service" id="setono_sylius_fragment_translation.command_bus"/>
             <tag name="messenger.message_handler"/>
         </service>
 

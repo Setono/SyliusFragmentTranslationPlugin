@@ -26,7 +26,7 @@ final class SetonoSyliusFragmentTranslationExtension extends AbstractResourceExt
         $container->setParameter('setono_sylius_fragment_translation.locale', $config['locale']);
         $container->setParameter('setono_sylius_fragment_translation.resource_translations', $config['resource_translations']);
         $container->setParameter('setono_sylius_fragment_translation.messenger.transport', $config['messenger']['transport']);
-        $container->setParameter('setono_sylius_fragment_translation.messenger.command_bus', $config['messenger']['command_bus']);
+        $container->setParameter('setono_sylius_fragment_translation.command_bus', $config['messenger']['command_bus']);
 
         $loader->load('services.xml');
 

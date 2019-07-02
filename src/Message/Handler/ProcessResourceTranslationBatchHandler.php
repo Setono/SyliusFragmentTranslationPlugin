@@ -46,11 +46,13 @@ final class ProcessResourceTranslationBatchHandler implements MessageHandlerInte
 
         $metaData = $manager->getClassMetadata($resourceTranslation->getClass());
 
+        $idFieldName = $metaData->getSingleIdentifierFieldName();
+
         $qb = $manager->createQueryBuilder();
-        $qb->select('o.' . $metaData->getSingleIdentifierFieldName())
+        $qb->select('o.' . $idFieldName)
             ->from($resourceTranslation->getClass(), 'o')
-            ->andWhere('o.id >= :offset')
-            ->orderBy('o.id')
+            ->andWhere(sprintf('o.%s >= :offset', $idFieldName))
+            ->orderBy(sprintf('o.%s', $idFieldName))
             ->setMaxResults($message->getLimit())
             ->setParameter('offset', $message->getOffsetId())
         ;
@@ -58,7 +60,7 @@ final class ProcessResourceTranslationBatchHandler implements MessageHandlerInte
         $objects = $qb->getQuery()->getResult();
 
         foreach ($objects as $object) {
-            $this->messageBus->dispatch(new TranslateResourceTranslation($resourceTranslation, $object['id']));
+            $this->messageBus->dispatch(new TranslateResourceTranslation($resourceTranslation, $object[$idFieldName]));
         }
     }
 }
