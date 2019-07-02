@@ -91,7 +91,7 @@ final class RegisterResourceTranslationsPass implements CompilerPassInterface
     {
         $definition = new Definition(ResourceUpdateListener::class, [
             new Reference('setono_sylius_fragment_translation.command_bus'),
-            new Reference('setono_sylius_fragment_translation.registry.resource_translation')
+            new Reference('setono_sylius_fragment_translation.registry.resource_translation'),
         ]);
         $definition->addTag('kernel.event_listener', ['event' => $resource . '.post_create', 'method' => 'onEvent']);
         $definition->addTag('kernel.event_listener', ['event' => $resource . '.post_update', 'method' => 'onEvent']);
