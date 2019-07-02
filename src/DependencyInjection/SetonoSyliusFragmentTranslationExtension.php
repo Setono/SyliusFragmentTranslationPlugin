@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\DependencyInjection;
 
+use Exception;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\CommandInterface;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
@@ -16,7 +17,7 @@ final class SetonoSyliusFragmentTranslationExtension extends AbstractResourceExt
     /**
      * {@inheritdoc}
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function load(array $config, ContainerBuilder $container): void
     {

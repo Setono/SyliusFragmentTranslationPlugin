@@ -11,9 +11,6 @@ use function Safe\sprintf;
 final class NoModelClassSetException extends InvalidArgumentException
 {
     /**
-     * NoModelClassSetException constructor.
-     *
-     *
      * @throws StringsException
      */
     public function __construct(string $resource, bool $translatable = false)
