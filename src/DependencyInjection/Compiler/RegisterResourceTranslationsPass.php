@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusFragmentTranslationPlugin\DependencyInjection\Compiler;
 
 use Safe\Exceptions\StringsException;
+use Setono\SyliusFragmentTranslationPlugin\EventListener\ResourceUpdateListener;
 use Setono\SyliusFragmentTranslationPlugin\Exception\NoModelClassSetException;
 use Setono\SyliusFragmentTranslationPlugin\Exception\ResourceNotFoundException;
 use Setono\SyliusFragmentTranslationPlugin\Exception\TranslatableResourceExpectedException;
@@ -81,6 +82,17 @@ final class RegisterResourceTranslationsPass implements CompilerPassInterface
             ]));
 
             $resourceTranslationRegistry->addMethodCall('register', [new Reference($serviceId)]);
+
+            $this->registerEventListener($container, $resource);
         }
+    }
+
+    private function registerEventListener(ContainerBuilder $container, string $resource): void
+    {
+        $definition = new Definition(ResourceUpdateListener::class, [new Reference('setono_sylius_fragment_translation.command_bus')]);
+        $definition->addTag('kernel.event_listener', ['event' => $resource . '.post_create', 'method' => 'onEvent']);
+        $definition->addTag('kernel.event_listener', ['event' => $resource . '.post_update', 'method' => 'onEvent']);
+
+        $container->setDefinition('setono_sylius_fragment_translation.event_listener.resource_update.' . $resource, $definition);
     }
 }

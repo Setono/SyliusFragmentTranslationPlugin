@@ -20,4 +20,15 @@ final class ResourceTranslationRegistry implements ResourceTranslationRegistryIn
     {
         $this->resourceTranslations[$resourceTranslation->getResource()] = $resourceTranslation;
     }
+
+    public function findByClass(string $class): ?ResourceTranslation
+    {
+        foreach ($this->resourceTranslations as $resourceTranslation) {
+            if ($resourceTranslation->getClass() === $class) {
+                return $resourceTranslation;
+            }
+        }
+
+        return null;
+    }
 }

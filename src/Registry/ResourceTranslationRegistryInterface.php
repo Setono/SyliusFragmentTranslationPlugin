@@ -14,4 +14,6 @@ interface ResourceTranslationRegistryInterface
     public function all(): array;
 
     public function register(ResourceTranslation $template): void;
+
+    public function findByClass(string $class): ?ResourceTranslation;
 }
