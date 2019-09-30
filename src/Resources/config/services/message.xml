@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="setono_sylius_fragment_translation.message_handler.process_resource_translation" class="Setono\SyliusFragmentTranslationPlugin\Message\Handler\ProcessResourceTranslationHandler">
+        <service id="setono_sylius_fragment_translation.message_handler.process_resource_translation"
+                 class="Setono\SyliusFragmentTranslationPlugin\Message\Handler\ProcessResourceTranslationHandler">
             <argument type="service" id="doctrine"/>
             <argument type="service" id="setono_sylius_fragment_translation.command_bus"/>
+            <argument type="service" id="setono_doctrine_orm_batcher.factory.batcher"/>
+
             <tag name="messenger.message_handler"/>
         </service>
 
-        <service id="setono_sylius_fragment_translation.message_handler.process_resource_translation_batch" class="Setono\SyliusFragmentTranslationPlugin\Message\Handler\ProcessResourceTranslationBatchHandler">
-            <argument type="service" id="doctrine"/>
+        <service id="setono_sylius_fragment_translation.message_handler.process_resource_translation_batch"
+                 class="Setono\SyliusFragmentTranslationPlugin\Message\Handler\ProcessResourceTranslationBatchHandler">
             <argument type="service" id="setono_sylius_fragment_translation.command_bus"/>
+            <argument type="service" id="setono_doctrine_orm_batcher.query.rebuilder"/>
+
             <tag name="messenger.message_handler"/>
         </service>
 
-        <service id="setono_sylius_fragment_translation.message_handler.translate_resource_translation" class="Setono\SyliusFragmentTranslationPlugin\Message\Handler\TranslateResourceTranslationHandler">
+        <service id="setono_sylius_fragment_translation.message_handler.translate_resource_translation"
+                 class="Setono\SyliusFragmentTranslationPlugin\Message\Handler\TranslateResourceTranslationHandler">
             <argument type="service" id="doctrine"/>
             <argument type="service" id="setono_sylius_fragment_translation.repository.fragment_translation"/>
             <argument type="service" id="setono_sylius_fragment_translation.replacer.default"/>
             <argument>%setono_sylius_fragment_translation.locale%</argument>
+
             <tag name="messenger.message_handler"/>
         </service>
     </services>

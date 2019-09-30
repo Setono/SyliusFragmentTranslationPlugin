@@ -6,7 +6,6 @@ namespace Setono\SyliusFragmentTranslationPlugin\Message\Handler;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use RuntimeException;
@@ -48,7 +47,6 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
     }
 
     /**
-     * @throws MappingException
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @throws StringsException
@@ -64,8 +62,6 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
             throw new RuntimeException(sprintf('No manager registered for class %s', $resourceTranslation->getClass()));
         }
 
-        $metaData = $manager->getClassMetadata($resourceTranslation->getClass());
-
         /** @var FragmentTranslationInterface[] $fragmentTranslations */
         $fragmentTranslations = $this->fragmentTranslationRepository->findBy([], [
             'priority' => 'desc',
@@ -78,7 +74,7 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
         $qb = $manager->createQueryBuilder();
         $qb->select('o')
             ->from($resourceTranslation->getClass(), 'o')
-            ->andWhere('o.' . $metaData->getSingleIdentifierFieldName() . ' = :id')
+            ->andWhere('o.id = :id')
             ->setParameter('id', $message->getId())
         ;
 

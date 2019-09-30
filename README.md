@@ -10,7 +10,11 @@ Will translate fragments of text automatically.
 
 ## Installation
 
-### Step 1: Download the plugin
+### Step 1: Install dependencies
+
+This plugin uses the [Doctrine ORM Batcher bundle](https://github.com/Setono/DoctrineORMBatcherBundle). Install that first.
+
+### Step 2: Download the plugin
 
 Open a command console, enter your project directory and execute the following command to download the latest stable version of this plugin:
 
@@ -21,7 +25,7 @@ $ composer require setono/sylius-fragment-translation-plugin
 This command requires you to have Composer installed globally, as explained in the [installation chapter](https://getcomposer.org/doc/00-intro.md) of the Composer documentation.
 
 
-### Step 2: Enable the plugin
+### Step 3: Enable the plugin
 
 Then, enable the plugin by adding it to the list of registered plugins/bundles
 in `config/bundles.php` file of your project before (!) `SyliusGridBundle`:
@@ -34,7 +38,7 @@ $bundles = [
 ];
 ```
 
-### Step 3: Configure plugin
+### Step 4: Configure plugin
 
 First import the general configuration:
 
@@ -58,7 +62,7 @@ setono_sylius_fragment_translation:
                 - name
 ```
 
-### Step 4: Import routing
+### Step 5: Import routing
 
 ```yaml
 # config/routes/setono_sylius_fragment_translation.yaml
@@ -66,11 +70,27 @@ setono_sylius_fragment_translation:
     resource: "@SetonoSyliusFragmentTranslationPlugin/Resources/config/routing.yaml"
 ```
 
-### Step 5: Update your database schema
+### Step 6: Update your database schema
 
 ```bash
 $ php bin/console doctrine:migrations:diff
 $ php bin/console doctrine:migrations:migrate
+```
+
+### Step 7: Using asynchronous transport (optional, but recommended)
+
+All commands in this plugin will extend the [CommandInterface](src/Message/Command/CommandInterface.php).
+Therefore you can route all commands easily by adding this to your [Messenger config](https://symfony.com/doc/current/messenger.html#routing-messages-to-a-transport):
+
+```yaml
+# config/packages/messenger.yaml
+framework:
+    messenger:
+        routing:
+            # Route all command messages to the async transport
+            # This presumes that you have already set up an 'async' transport
+            # See docs on how to setup a transport like that: https://symfony.com/doc/current/messenger.html#transports-async-queued-messages
+            'Setono\SyliusFragmentTranslationPlugin\Message\Command\CommandInterface': async
 ```
 
 ## Usage

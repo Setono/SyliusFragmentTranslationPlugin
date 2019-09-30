@@ -2,18 +2,18 @@ setono_sylius_fragment_translation:
     form:
         fragment_translation:
             case_sensitive: Case sensitive
-            locale: Locale (target)
-            priority: Priority (notice the highest prioritized will be applied first)
+            locale: Target locale
+            priority: Priority (the highest prioritized will be applied first)
             regex: Regular expression
             replacement: Replacement (can contain backreferences)
             search: Search string (can contain regex)
+            source_locale: Source locale
     ui:
         edit_fragment_translation: Edit fragment translation
         fragment_translations: Fragment translations
         locale: Locale (target)
         manage_fragment_translations: Manage fragment translations
         new_fragment_translation: New fragment translation
+        priority: Priority
         replacement: Replacement
         search: Search string
-        priority: Priority
-        

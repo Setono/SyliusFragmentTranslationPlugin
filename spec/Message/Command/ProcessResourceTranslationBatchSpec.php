@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace spec\Setono\SyliusFragmentTranslationPlugin\Message\Command;
 
+use Setono\DoctrineORMBatcher\Batch\BatchInterface;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\ProcessResourceTranslationBatch;
 
 class ProcessResourceTranslationBatchSpec extends AbstractCommandSpec
 {
-    public function let(): void
+    public function let(BatchInterface $batch): void
     {
-        $this->beConstructedWith(self::getSharedResourceTranslation(), 1, 1);
+        $this->beConstructedWith(self::getSharedResourceTranslation(), $batch);
     }
 
     public function it_is_initializable(): void
@@ -18,10 +19,9 @@ class ProcessResourceTranslationBatchSpec extends AbstractCommandSpec
         $this->shouldHaveType(ProcessResourceTranslationBatch::class);
     }
 
-    public function it_returns_correct_values(): void
+    public function it_returns_correct_values(BatchInterface $batch): void
     {
         $this->getResourceTranslation()->shouldReturn(self::getSharedResourceTranslation());
-        $this->getOffsetId()->shouldReturn(1);
-        $this->getLimit()->shouldReturn(1);
+        $this->getBatch()->shouldReturn($batch);
     }
 }

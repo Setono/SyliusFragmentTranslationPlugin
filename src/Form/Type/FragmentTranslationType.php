@@ -18,11 +18,15 @@ final class FragmentTranslationType extends AbstractResourceType
     /** @var RepositoryInterface */
     private $localeRepository;
 
-    public function __construct(string $dataClass, RepositoryInterface $localeRepository, array $validationGroups = [])
+    /** @var string */
+    private $sourceLocale;
+
+    public function __construct(string $dataClass, RepositoryInterface $localeRepository, string $sourceLocale, array $validationGroups = [])
     {
         parent::__construct($dataClass, $validationGroups);
 
         $this->localeRepository = $localeRepository;
+        $this->sourceLocale = $sourceLocale;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -34,7 +38,7 @@ final class FragmentTranslationType extends AbstractResourceType
         /** @var LocaleInterface $item */
         foreach ($collection as $item) {
             $code = $item->getCode();
-            if (null === $code) {
+            if (null === $code || $code === $this->sourceLocale) {
                 continue;
             }
 
@@ -42,6 +46,13 @@ final class FragmentTranslationType extends AbstractResourceType
         }
 
         $builder
+            ->add('sourceLocale', TextType::class, [
+                'required' => false,
+                'mapped' => false,
+                'label' => 'setono_sylius_fragment_translation.form.fragment_translation.source_locale',
+                'disabled' => true,
+                'data' => $this->sourceLocale,
+            ])
             ->add('locale', ChoiceType::class, [
                 'label' => 'setono_sylius_fragment_translation.form.fragment_translation.locale',
                 'choices' => $locales,

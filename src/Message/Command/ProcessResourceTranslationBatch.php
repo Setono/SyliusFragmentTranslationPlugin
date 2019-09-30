@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\Message\Command;
 
+use Setono\DoctrineORMBatcher\Batch\BatchInterface;
 use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslation;
 
 final class ProcessResourceTranslationBatch implements CommandInterface
@@ -11,17 +12,13 @@ final class ProcessResourceTranslationBatch implements CommandInterface
     /** @var ResourceTranslation */
     private $resourceTranslation;
 
-    /** @var int */
-    private $offsetId;
+    /** @var BatchInterface */
+    private $batch;
 
-    /** @var int */
-    private $limit;
-
-    public function __construct(ResourceTranslation $resourceTranslation, int $offsetId, int $limit)
+    public function __construct(ResourceTranslation $resourceTranslation, BatchInterface $batch)
     {
         $this->resourceTranslation = $resourceTranslation;
-        $this->offsetId = $offsetId;
-        $this->limit = $limit;
+        $this->batch = $batch;
     }
 
     public function getResourceTranslation(): ResourceTranslation
@@ -29,13 +26,8 @@ final class ProcessResourceTranslationBatch implements CommandInterface
         return $this->resourceTranslation;
     }
 
-    public function getOffsetId(): int
+    public function getBatch(): BatchInterface
     {
-        return $this->offsetId;
-    }
-
-    public function getLimit(): int
-    {
-        return $this->limit;
+        return $this->batch;
     }
 }

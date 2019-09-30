@@ -56,10 +56,6 @@ final class ConfigurationTest extends TestCase
             ],
             'driver' => SyliusResourceBundle::DRIVER_DOCTRINE_ORM,
             'locale' => '%locale%',
-            'messenger' => [
-                'command_bus' => 'messenger.bus.default',
-                'transport' => null,
-            ],
             'resources' => [
                 'fragment_translation' => [
                     'classes' => [
