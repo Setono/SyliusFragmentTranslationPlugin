@@ -5,9 +5,10 @@ Feature: Updating a fragment translation
   I want to be able to edit a fragment translation
 
   Background:
+    Given the store operates on a single channel in "United States"
+    And the store has locale "da_DK"
     Given the store has a fragment translation with locale "da_DK", search "search", and replacement "replacement"
     And I am logged in as an administrator
-    And the store operates on a single channel in "United States"
 
   @ui
   Scenario: Updating fragment translation search string
