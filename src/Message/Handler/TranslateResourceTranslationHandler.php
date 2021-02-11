@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\Message\Handler;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Webmozart\Assert\Assert;
