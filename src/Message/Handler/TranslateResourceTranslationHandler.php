@@ -6,10 +6,8 @@ namespace Setono\SyliusFragmentTranslationPlugin\Message\Handler;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use RuntimeException;
-use Safe\Exceptions\StringsException;
+use Webmozart\Assert\Assert;
 use function Safe\sprintf;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\TranslateResourceTranslation;
 use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslationInterface;
@@ -22,17 +20,13 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 final class TranslateResourceTranslationHandler implements MessageHandlerInterface
 {
-    /** @var ManagerRegistry */
-    private $managerRegistry;
+    private ManagerRegistry $managerRegistry;
 
-    /** @var RepositoryInterface */
-    private $fragmentTranslationRepository;
+    private RepositoryInterface $fragmentTranslationRepository;
 
-    /** @var ReplacerInterface */
-    private $replacer;
+    private ReplacerInterface $replacer;
 
-    /** @var string */
-    private $baseLocale;
+    private string $baseLocale;
 
     public function __construct(
         ManagerRegistry $managerRegistry,
@@ -46,11 +40,6 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
         $this->baseLocale = $baseLocale;
     }
 
-    /**
-     * @throws NoResultException
-     * @throws NonUniqueResultException
-     * @throws StringsException
-     */
     public function __invoke(TranslateResourceTranslation $message): void
     {
         $resourceTranslation = $message->getResourceTranslation();
@@ -81,9 +70,11 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
         /** @var TranslatableInterface $obj */
         $obj = $qb->getQuery()->getSingleResult();
 
-        /** @var TranslationInterface[] $targets */
+        /** @var array<string, TranslationInterface> $targets */
         $targets = [];
         $source = null;
+
+        /** @var TranslationInterface $translation */
         foreach ($obj->getTranslations() as $translation) {
             $locale = $translation->getLocale();
             if (null === $locale) {
@@ -104,27 +95,30 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
         foreach ($fragmentTranslations as $fragmentTranslation) {
-            $translation = $targets[$fragmentTranslation->getLocale()] ?? null;
+            $translation = $targets[(string) $fragmentTranslation->getLocale()] ?? null;
             if (null === $translation) {
                 /** @var TranslationInterface $translation */
                 $translation = clone $source;
                 $translation->setLocale($fragmentTranslation->getLocale());
-                $targets[$fragmentTranslation->getLocale()] = $translation;
+                $targets[(string) $fragmentTranslation->getLocale()] = $translation;
             }
 
             foreach ($resourceTranslation->getProperties() as $property) {
                 $val = $propertyAccessor->getValue($source, $property);
+                Assert::string($val);
 
                 $replacementResult = $this->replacer->replace(
                     $val,
-                    $fragmentTranslation->getSearch(),
-                    $fragmentTranslation->getReplacement(),
+                    (string) $fragmentTranslation->getSearch(),
+                    (string) $fragmentTranslation->getReplacement(),
                     $fragmentTranslation->isCaseSensitive(),
                     $fragmentTranslation->isRegex()
                 );
 
                 if ($replacementResult->replacementsDone()) {
-                    $propertyAccessor->setValue($translation, $property, $replacementResult->getReplacedString());
+                    $propertyAccessor->setValue(
+                        $translation, $property, $replacementResult->getReplacedString()
+                    );
 
                     $obj->addTranslation($translation);
                 }

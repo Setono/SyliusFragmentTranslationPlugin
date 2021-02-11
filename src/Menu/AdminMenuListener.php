@@ -12,7 +12,7 @@ final class AdminMenuListener
     {
         $menu = $event->getMenu();
         $catalog = $menu->getChild('catalog');
-        if ($catalog) {
+        if (null !== $catalog) {
             $catalog->addChild('fragment_translations', [
                 'route' => 'setono_sylius_fragment_translation_admin_fragment_translation_index',
             ])

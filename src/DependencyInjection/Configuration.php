@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\DependencyInjection;
 
-use function method_exists;
 use Setono\SyliusFragmentTranslationPlugin\Form\Type\FragmentTranslationType;
 use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslation;
-use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslationInterface;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Sylius\Component\Resource\Factory\Factory;
@@ -20,12 +18,9 @@ final class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('setono_sylius_fragment_translation');
-        if (method_exists($treeBuilder, 'getRootNode')) {
-            $rootNode = $treeBuilder->getRootNode();
-        } else {
-            // BC layer for symfony/config 4.1 and older
-            $rootNode = $treeBuilder->root('setono_sylius_fragment_translation');
-        }
+
+        /** @var ArrayNodeDefinition $rootNode */
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->addDefaultsIfNotSet()
@@ -76,7 +71,6 @@ final class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode('model')->defaultValue(FragmentTranslation::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('interface')->defaultValue(FragmentTranslationInterface::class)->cannotBeEmpty()->end()
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
                                         ->scalarNode('repository')->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()

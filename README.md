@@ -3,8 +3,7 @@
 [![Latest Version][ico-version]][link-packagist]
 [![Latest Unstable Version][ico-unstable-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
-[![Build Status][ico-travis]][link-travis]
-[![Quality Score][ico-code-quality]][link-code-quality]
+[![Build Status][ico-github-actions]][link-github-actions]
 
 Will translate fragments of text automatically.
 
@@ -126,9 +125,7 @@ framework:
 [ico-version]: https://poser.pugx.org/setono/sylius-fragment-translation-plugin/v/stable
 [ico-unstable-version]: https://poser.pugx.org/setono/sylius-fragment-translation-plugin/v/unstable
 [ico-license]: https://poser.pugx.org/setono/sylius-fragment-translation-plugin/license
-[ico-travis]: https://travis-ci.com/Setono/SyliusFragmentTranslationPlugin.svg?branch=master
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/Setono/SyliusFragmentTranslationPlugin.svg?style=flat-square
+[ico-github-actions]: https://github.com/Setono/SyliusFragmentTranslationPlugin/workflows/build/badge.svg
 
 [link-packagist]: https://packagist.org/packages/setono/sylius-fragment-translation-plugin
-[link-travis]: https://travis-ci.com/Setono/SyliusFragmentTranslationPlugin
-[link-code-quality]: https://scrutinizer-ci.com/g/Setono/SyliusFragmentTranslationPlugin
+[link-github-actions]: https://github.com/Setono/SyliusFragmentTranslationPlugin/actions

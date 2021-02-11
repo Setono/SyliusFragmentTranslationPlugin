@@ -8,8 +8,7 @@ use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslati
 
 final class ProcessResourceTranslation implements CommandInterface
 {
-    /** @var ResourceTranslation */
-    private $resourceTranslation;
+    private ResourceTranslation $resourceTranslation;
 
     public function __construct(ResourceTranslation $resourceTranslation)
     {

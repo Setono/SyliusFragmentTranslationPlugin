@@ -9,14 +9,13 @@ use Setono\SyliusFragmentTranslationPlugin\Message\Command\ProcessResourceTransl
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\TranslateResourceTranslation;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Webmozart\Assert\Assert;
 
 final class ProcessResourceTranslationBatchHandler implements MessageHandlerInterface
 {
-    /** @var MessageBusInterface */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
-    /** @var QueryRebuilderInterface */
-    private $queryRebuilder;
+    private QueryRebuilderInterface $queryRebuilder;
 
     public function __construct(MessageBusInterface $messageBus, QueryRebuilderInterface $queryRebuilder)
     {
@@ -31,7 +30,12 @@ final class ProcessResourceTranslationBatchHandler implements MessageHandlerInte
         $objects = $q->getResult();
 
         foreach ($objects as $object) {
-            $this->messageBus->dispatch(new TranslateResourceTranslation($message->getResourceTranslation(), $object['id']));
+            Assert::isArray($object);
+            Assert::keyExists($object, 'id');
+
+            $this->messageBus->dispatch(
+                new TranslateResourceTranslation($message->getResourceTranslation(), $object['id'])
+            );
         }
     }
 }

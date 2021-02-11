@@ -9,11 +9,9 @@ use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslati
 
 final class ProcessResourceTranslationBatch implements CommandInterface
 {
-    /** @var ResourceTranslation */
-    private $resourceTranslation;
+    private ResourceTranslation $resourceTranslation;
 
-    /** @var BatchInterface */
-    private $batch;
+    private BatchInterface $batch;
 
     public function __construct(ResourceTranslation $resourceTranslation, BatchInterface $batch)
     {

@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\Replacer;
 
-use Safe\Exceptions\PcreException;
+use Webmozart\Assert\Assert;
 use function Safe\preg_replace;
 
 final class Replacer implements ReplacerInterface
 {
-    /**
-     * @throws PcreException
-     */
     public function replace(string $str, string $search, string $replace, bool $caseSensitive, bool $regex): Result
     {
         if ($regex) {
@@ -21,6 +18,9 @@ final class Replacer implements ReplacerInterface
         } else {
             $str = str_ireplace($search, $replace, $str, $count);
         }
+
+        Assert::string($str);
+        Assert::integer($count);
 
         return new Result($str, $count);
     }

@@ -17,25 +17,22 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class ProcessResourceTranslationHandler implements MessageHandlerInterface
 {
-    /** @var ManagerRegistry */
-    private $managerRegistry;
+    private ManagerRegistry $managerRegistry;
 
-    /** @var MessageBusInterface */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
-    /** @var BatcherFactoryInterface */
-    private $batcherFactory;
+    private BatcherFactoryInterface $batcherFactory;
 
-    public function __construct(ManagerRegistry $managerRegistry, MessageBusInterface $messageBus, BatcherFactoryInterface $batcherFactory)
-    {
+    public function __construct(
+        ManagerRegistry $managerRegistry,
+        MessageBusInterface $messageBus,
+        BatcherFactoryInterface $batcherFactory
+    ) {
         $this->managerRegistry = $managerRegistry;
         $this->messageBus = $messageBus;
         $this->batcherFactory = $batcherFactory;
     }
 
-    /**
-     * @throws StringsException
-     */
     public function __invoke(ProcessResourceTranslation $message): void
     {
         $resourceTranslation = $message->getResourceTranslation();
@@ -44,8 +41,7 @@ final class ProcessResourceTranslationHandler implements MessageHandlerInterface
 
         $qb = $manager->createQueryBuilder();
         $qb->select('o.id')
-            ->from($resourceTranslation->getClass(), 'o')
-        ;
+            ->from($resourceTranslation->getClass(), 'o');
 
         $batcherFactory = $this->batcherFactory->createIdCollectionBatcher($qb);
         $batches = $batcherFactory->getBatches();
@@ -55,9 +51,6 @@ final class ProcessResourceTranslationHandler implements MessageHandlerInterface
         }
     }
 
-    /**
-     * @throws StringsException
-     */
     private function getManager(string $class): EntityManagerInterface
     {
         /** @var EntityManagerInterface|null $manager */

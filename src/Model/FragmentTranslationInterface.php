@@ -8,6 +8,8 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 
 interface FragmentTranslationInterface extends ResourceInterface
 {
+    public function getId(): ?int;
+
     /**
      * The target locale. The source locale is defined in the configuration of the plugin
      *
