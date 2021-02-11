@@ -28,13 +28,22 @@ final class ProcessResourceTranslationBatchHandler implements MessageHandlerInte
         $q = $this->queryRebuilder->rebuild($message->getBatch());
 
         $objects = $q->getResult();
+        Assert::isArray($objects);
 
         foreach ($objects as $object) {
             Assert::isArray($object);
-            Assert::keyExists($object, 'id');
+
+            /** @var string|int|null $objectId */
+            $objectId = $object['id'] ?? null;
+
+            if (null === $objectId) {
+                continue;
+            }
+
+            Assert::integerish($objectId);
 
             $this->messageBus->dispatch(
-                new TranslateResourceTranslation($message->getResourceTranslation(), $object['id'])
+                new TranslateResourceTranslation($message->getResourceTranslation(), (int) $object['id'])
             );
         }
     }

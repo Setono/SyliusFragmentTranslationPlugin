@@ -104,6 +104,7 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
             }
 
             foreach ($resourceTranslation->getProperties() as $property) {
+                /** @var mixed $val */
                 $val = $propertyAccessor->getValue($source, $property);
                 Assert::string($val);
 

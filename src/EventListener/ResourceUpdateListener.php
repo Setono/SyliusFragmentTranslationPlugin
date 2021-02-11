@@ -37,6 +37,6 @@ final class ResourceUpdateListener
             return;
         }
 
-        $this->commandBus->dispatch(new TranslateResourceTranslation($resourceTranslation, $resource->getId()));
+        $this->commandBus->dispatch(new TranslateResourceTranslation($resourceTranslation, (int) $resource->getId()));
     }
 }
