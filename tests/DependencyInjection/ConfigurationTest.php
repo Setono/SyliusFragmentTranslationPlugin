@@ -60,7 +60,6 @@ final class ConfigurationTest extends TestCase
                 'fragment_translation' => [
                     'classes' => [
                         'model' => FragmentTranslation::class,
-                        'interface' => FragmentTranslationInterface::class,
                         'controller' => ResourceController::class,
                         'factory' => Factory::class,
                         'form' => FragmentTranslationType::class,
