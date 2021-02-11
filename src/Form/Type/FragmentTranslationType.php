@@ -15,14 +15,19 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class FragmentTranslationType extends AbstractResourceType
 {
-    /** @var RepositoryInterface */
-    private $localeRepository;
+    private RepositoryInterface $localeRepository;
 
-    /** @var string */
-    private $sourceLocale;
+    private string $sourceLocale;
 
-    public function __construct(string $dataClass, RepositoryInterface $localeRepository, string $sourceLocale, array $validationGroups = [])
-    {
+    /**
+     * @param array<array-key, string> $validationGroups
+     */
+    public function __construct(
+        string $dataClass,
+        RepositoryInterface $localeRepository,
+        string $sourceLocale,
+        array $validationGroups = []
+    ) {
         parent::__construct($dataClass, $validationGroups);
 
         $this->localeRepository = $localeRepository;
@@ -32,6 +37,8 @@ final class FragmentTranslationType extends AbstractResourceType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         // todo make this better
+
+        /** @var array<string, string> $locales */
         $locales = [];
         $collection = $this->localeRepository->findAll();
 
@@ -73,8 +80,7 @@ final class FragmentTranslationType extends AbstractResourceType
             ->add('regex', CheckboxType::class, [
                 'required' => false,
                 'label' => 'setono_sylius_fragment_translation.form.fragment_translation.regex',
-            ])
-        ;
+            ]);
     }
 
     public function getBlockPrefix(): string

@@ -6,15 +6,16 @@ namespace Setono\SyliusFragmentTranslationPlugin\ResourceTranslation;
 
 final class ResourceTranslation
 {
-    /** @var string */
-    private $resource;
+    private string $resource;
 
-    /** @var string */
-    private $class;
+    private string $class;
 
-    /** @var array */
-    private $properties;
+    /** @var array<string> */
+    private array $properties;
 
+    /**
+     * @param array<string> $properties
+     */
     public function __construct(string $resource, string $class, array $properties)
     {
         $this->resource = $resource;
@@ -32,6 +33,9 @@ final class ResourceTranslation
         return $this->class;
     }
 
+    /**
+     * @return array<string>
+     */
     public function getProperties(): array
     {
         return $this->properties;

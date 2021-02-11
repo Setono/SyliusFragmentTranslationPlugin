@@ -13,11 +13,9 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class TranslateCommand extends Command
 {
-    /** @var MessageBusInterface */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
-    /** @var ResourceTranslationRegistryInterface */
-    private $resourceTranslationRegistry;
+    private ResourceTranslationRegistryInterface $resourceTranslationRegistry;
 
     public function __construct(MessageBusInterface $messageBus, ResourceTranslationRegistryInterface $resourceTranslationRegistry)
     {

@@ -9,11 +9,11 @@ use Setono\SyliusFragmentTranslationPlugin\ResourceTranslation\ResourceTranslati
 interface ResourceTranslationRegistryInterface
 {
     /**
-     * @return ResourceTranslation[]
+     * @return array<string, ResourceTranslation>
      */
     public function all(): array;
 
-    public function register(ResourceTranslation $template): void;
+    public function register(ResourceTranslation $resourceTranslation): void;
 
     public function findByClass(string $class): ?ResourceTranslation;
 }

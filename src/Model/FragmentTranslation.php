@@ -6,35 +6,23 @@ namespace Setono\SyliusFragmentTranslationPlugin\Model;
 
 class FragmentTranslation implements FragmentTranslationInterface
 {
-    /** @var int */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var string */
-    protected $locale;
+    protected ?string $locale = null;
 
-    /** @var string */
-    protected $search;
+    protected ?string $search = null;
 
-    /** @var string */
-    protected $replacement;
+    protected ?string $replacement = null;
 
-    /** @var int */
-    protected $priority = 0;
+    protected int $priority = 0;
 
-    /** @var bool */
-    protected $caseSensitive = false;
+    protected bool $caseSensitive = false;
 
-    /** @var bool */
-    protected $regex = false;
+    protected bool $regex = false;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     public function getLocale(): ?string
