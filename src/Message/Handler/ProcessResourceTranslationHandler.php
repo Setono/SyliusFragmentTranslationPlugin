@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\Message\Handler;
 
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use RuntimeException;
 use function Safe\sprintf;
 use Setono\DoctrineORMBatcher\Factory\BatcherFactoryInterface;

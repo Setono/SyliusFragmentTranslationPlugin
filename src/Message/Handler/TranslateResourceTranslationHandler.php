@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\Message\Handler;
 
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use RuntimeException;
-use Webmozart\Assert\Assert;
 use function Safe\sprintf;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\TranslateResourceTranslation;
 use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslationInterface;
@@ -17,6 +16,7 @@ use Sylius\Component\Resource\Model\TranslationInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Webmozart\Assert\Assert;
 
 final class TranslateResourceTranslationHandler implements MessageHandlerInterface
 {
