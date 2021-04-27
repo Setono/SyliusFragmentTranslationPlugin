@@ -18,8 +18,6 @@ class FragmentTranslation implements FragmentTranslationInterface
 
     protected bool $caseSensitive = false;
 
-    protected bool $regex = false;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -73,15 +71,5 @@ class FragmentTranslation implements FragmentTranslationInterface
     public function setCaseSensitive(bool $caseSensitive): void
     {
         $this->caseSensitive = $caseSensitive;
-    }
-
-    public function isRegex(): bool
-    {
-        return $this->regex;
-    }
-
-    public function setRegex(bool $regex): void
-    {
-        $this->regex = $regex;
     }
 }

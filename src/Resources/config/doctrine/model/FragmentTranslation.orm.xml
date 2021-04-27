@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                       http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslation" table="setono_sylius_fragment_translation__fragment_translation">
+    <mapped-superclass name="Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslation"
+                       table="setono_sylius_fragment_translation__fragment_translation">
         <id name="id" column="id" type="integer">
-            <generator strategy="AUTO" />
+            <generator strategy="AUTO"/>
         </id>
 
-        <field name="locale" type="string" />
-        <field name="search" type="string" />
-        <field name="replacement" type="string" />
-        <field name="priority" type="integer" />
-        <field name="caseSensitive" type="boolean" />
-        <field name="regex" type="boolean" />
+        <field name="locale" type="string"/>
+        <field name="search" type="string"/>
+        <field name="replacement" type="string"/>
+        <field name="priority" type="integer"/>
+        <field name="caseSensitive" type="boolean"/>
     </mapped-superclass>
 
 </doctrine-mapping>

@@ -20,14 +20,14 @@ interface FragmentTranslationInterface extends ResourceInterface
     public function setLocale(string $locale): void;
 
     /**
-     * The string to search for. This can be a regex string
+     * The string to search for
      */
     public function getSearch(): ?string;
 
     public function setSearch(string $search): void;
 
     /**
-     * The string to replace with. Note that since the search string can be a regex then this string can also contain references
+     * The string to replace with
      */
     public function getReplacement(): ?string;
 
@@ -40,8 +40,4 @@ interface FragmentTranslationInterface extends ResourceInterface
     public function isCaseSensitive(): bool;
 
     public function setCaseSensitive(bool $caseSensitive): void;
-
-    public function isRegex(): bool;
-
-    public function setRegex(bool $regex): void;
 }
