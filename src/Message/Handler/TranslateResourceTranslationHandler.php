@@ -110,8 +110,7 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
                     $val,
                     (string) $fragmentTranslation->getSearch(),
                     (string) $fragmentTranslation->getReplacement(),
-                    $fragmentTranslation->isCaseSensitive(),
-                    $fragmentTranslation->isRegex()
+                    $fragmentTranslation->isCaseSensitive()
                 );
 
                 if ($replacementResult->replacementsDone()) {

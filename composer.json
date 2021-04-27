@@ -63,8 +63,8 @@
     "prefer-stable": true,
     "scripts": {
         "analyse": "psalm",
-        "check-style": "ecs check",
-        "fix-style": "ecs check --fix",
+        "check-style": "ecs check src/ spec/",
+        "fix-style": "ecs check src/ spec/ --fix",
         "phpspec": "phpspec run",
         "phpunit": "phpunit",
         "test": [

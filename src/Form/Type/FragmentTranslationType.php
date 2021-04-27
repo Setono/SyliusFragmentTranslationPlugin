@@ -77,10 +77,7 @@ final class FragmentTranslationType extends AbstractResourceType
                 'required' => false,
                 'label' => 'setono_sylius_fragment_translation.form.fragment_translation.case_sensitive',
             ])
-            ->add('regex', CheckboxType::class, [
-                'required' => false,
-                'label' => 'setono_sylius_fragment_translation.form.fragment_translation.regex',
-            ]);
+        ;
     }
 
     public function getBlockPrefix(): string
