@@ -74,7 +74,6 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
         $targets = [];
         $source = null;
 
-        /** @var TranslationInterface $translation */
         foreach ($obj->getTranslations() as $translation) {
             $locale = $translation->getLocale();
             if (null === $locale) {
@@ -97,7 +96,6 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
         foreach ($fragmentTranslations as $fragmentTranslation) {
             $translation = $targets[(string) $fragmentTranslation->getLocale()] ?? null;
             if (null === $translation) {
-                /** @var TranslationInterface $translation */
                 $translation = clone $source;
                 $translation->setLocale($fragmentTranslation->getLocale());
                 $targets[(string) $fragmentTranslation->getLocale()] = $translation;
