@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace Setono\SyliusFragmentTranslationPlugin\Replacer;
 
-use Webmozart\Assert\Assert;
-
 final class Replacer implements ReplacerInterface
 {
-    public function replace(string $str, string $search, string $replace, bool $caseSensitive): Result
+    public function replace(string $input, string $search, string $replace, bool $caseSensitive): Result
     {
-        if ($caseSensitive) {
-            $str = str_replace($search, $replace, $str, $count);
-        } else {
-            $str = str_ireplace($search, $replace, $str, $count);
+        $flags = '';
+        if (!$caseSensitive) {
+            $flags .= 'i';
         }
 
-        Assert::integer($count);
+        $delimiter = '#';
 
-        return new Result($str, $count);
+        $search = preg_quote($search, $delimiter);
+
+        $output = preg_replace(sprintf('%s\b%s\b%s%s', $delimiter, $search, $delimiter, $flags), $replace, $input);
+
+        return new Result($input, $output);
     }
 }

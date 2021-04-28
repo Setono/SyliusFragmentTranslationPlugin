@@ -6,5 +6,5 @@ namespace Setono\SyliusFragmentTranslationPlugin\Replacer;
 
 interface ReplacerInterface
 {
-    public function replace(string $str, string $search, string $replace, bool $caseSensitive): Result;
+    public function replace(string $input, string $search, string $replace, bool $caseSensitive): Result;
 }
