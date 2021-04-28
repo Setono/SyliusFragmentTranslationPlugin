@@ -113,9 +113,9 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
                     $fragmentTranslation->isCaseSensitive()
                 );
 
-                if ($replacementResult->replacementsDone()) {
+                if ($replacementResult->wasReplacementsDone()) {
                     $propertyAccessor->setValue(
-                        $translation, $property, $replacementResult->getReplacedString()
+                        $translation, $property, $replacementResult->getOutput()
                     );
 
                     $obj->addTranslation($translation);

@@ -6,28 +6,42 @@ namespace Setono\SyliusFragmentTranslationPlugin\Replacer;
 
 final class Result
 {
-    private string $replacedString;
+    private string $input;
 
-    private int $replacements;
+    private string $output;
 
-    public function __construct(string $replacedString, int $replacements)
+    private bool $replacementsDone;
+
+    public function __construct(string $input, string $output)
     {
-        $this->replacedString = $replacedString;
-        $this->replacements = $replacements;
+        $this->input = $input;
+        $this->output = $output;
+        $this->replacementsDone = $input !== $output;
     }
 
-    public function getReplacedString(): string
+    /**
+     * The string before any replacements was done
+     */
+    public function getInput(): string
     {
-        return $this->replacedString;
+        return $this->input;
     }
 
-    public function getReplacements(): int
+    /**
+     * The string after any replacements was done
+     */
+    public function getOutput(): string
     {
-        return $this->replacements;
+        return $this->output;
     }
 
-    public function replacementsDone(): bool
+    public function __toString(): string
     {
-        return $this->replacements > 0;
+        return $this->getOutput();
+    }
+
+    public function wasReplacementsDone(): bool
+    {
+        return $this->replacementsDone;
     }
 }
