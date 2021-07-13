@@ -7,10 +7,10 @@ namespace Setono\SyliusFragmentTranslationPlugin\Message\Handler;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use RuntimeException;
-use function Safe\sprintf;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\TranslateResourceTranslation;
 use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslationInterface;
 use Setono\SyliusFragmentTranslationPlugin\Replacer\ReplacerInterface;
+use function sprintf;
 use Sylius\Component\Resource\Model\TranslatableInterface;
 use Sylius\Component\Resource\Model\TranslationInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -115,7 +115,9 @@ final class TranslateResourceTranslationHandler implements MessageHandlerInterfa
 
                 if ($replacementResult->wasReplacementsDone()) {
                     $propertyAccessor->setValue(
-                        $translation, $property, $replacementResult->getOutput()
+                        $translation,
+                        $property,
+                        $replacementResult->getOutput()
                     );
 
                     $obj->addTranslation($translation);

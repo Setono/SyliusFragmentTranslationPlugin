@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusFragmentTranslationPlugin\Exception;
 
 use InvalidArgumentException;
-use function Safe\sprintf;
+use function sprintf;
 
 final class ResourceNotFoundException extends InvalidArgumentException
 {

@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 use Setono\SyliusFragmentTranslationPlugin\DependencyInjection\Configuration;
 use Setono\SyliusFragmentTranslationPlugin\Form\Type\FragmentTranslationType;
 use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslation;
-use Setono\SyliusFragmentTranslationPlugin\Model\FragmentTranslationInterface;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Sylius\Component\Resource\Factory\Factory;
