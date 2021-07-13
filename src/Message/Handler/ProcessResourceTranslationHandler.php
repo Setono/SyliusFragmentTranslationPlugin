@@ -7,10 +7,10 @@ namespace Setono\SyliusFragmentTranslationPlugin\Message\Handler;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use RuntimeException;
-use function Safe\sprintf;
 use Setono\DoctrineORMBatcher\Factory\BatcherFactoryInterface;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\ProcessResourceTranslation;
 use Setono\SyliusFragmentTranslationPlugin\Message\Command\ProcessResourceTranslationBatch;
+use function sprintf;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 

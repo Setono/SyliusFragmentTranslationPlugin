@@ -11,14 +11,10 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class FragmentTranslationContext implements Context
 {
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $fragmentTranslationRepository;
 
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $fragmentTranslationFactory;
 
     public function __construct(RepositoryInterface $fragmentTranslationRepository, FactoryInterface $fragmentTranslationFactory)

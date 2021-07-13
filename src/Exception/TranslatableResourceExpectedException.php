@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Setono\SyliusFragmentTranslationPlugin\Exception;
 
 use InvalidArgumentException;
-use function Safe\sprintf;
+use function sprintf;
 use Sylius\Component\Resource\Model\TranslatableInterface;
 
 final class TranslatableResourceExpectedException extends InvalidArgumentException

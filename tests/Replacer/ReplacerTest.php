@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Setono\SyliusFragmentTranslationPlugin\Replacer;
 
-use Setono\SyliusFragmentTranslationPlugin\Replacer\Replacer;
 use PHPUnit\Framework\TestCase;
+use Setono\SyliusFragmentTranslationPlugin\Replacer\Replacer;
 
 /**
  * @covers \Setono\SyliusFragmentTranslationPlugin\Replacer\Replacer
@@ -20,6 +22,9 @@ final class ReplacerTest extends TestCase
         self::assertSame($expected, (string) $replacer->replace($input, $search, $replace, $caseSensitive));
     }
 
+    /**
+     * @return array<array-key, array{0: string, 1: string, 2: string, 3: string, 4: bool}>
+     */
     public function getReplacements(): array
     {
         return [

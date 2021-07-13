@@ -14,24 +14,16 @@ use Webmozart\Assert\Assert;
 
 final class ManagingFragmentTranslationsContext implements Context
 {
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $fragmentTranslationRepository;
 
-    /**
-     * @var IndexFragmentTranslationPage
-     */
+    /** @var IndexFragmentTranslationPage */
     private $indexPage;
 
-    /**
-     * @var CreateFragmentTranslationPage
-     */
+    /** @var CreateFragmentTranslationPage */
     private $createPage;
 
-    /**
-     * @var UpdateFragmentTranslationPage
-     */
+    /** @var UpdateFragmentTranslationPage */
     private $updatePage;
 
     public function __construct(
