@@ -2,7 +2,7 @@ setono_sylius_fragment_translation_admin_fragment_translation:
     resource: |
         alias: setono_sylius_fragment_translation.fragment_translation
         section: admin
-        templates: SyliusAdminBundle:Crud
+        templates: "@SyliusAdmin\\Crud"
         redirect: update
         grid: setono_sylius_fragment_translation_admin_fragment_translation
         vars:

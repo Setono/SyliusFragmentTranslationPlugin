@@ -1,13 +1,13 @@
 {
     "name": "setono/sylius-fragment-translation-plugin",
-    "type": "sylius-plugin",
     "description": "Will translate fragments of text automatically",
+    "license": "MIT",
+    "type": "sylius-plugin",
     "keywords": [
         "sylius",
         "sylius-plugin",
         "translation"
     ],
-    "license": "MIT",
     "require": {
         "php": ">=7.4",
         "doctrine/orm": "^2.7",
@@ -40,14 +40,7 @@
         "symfony/web-profiler-bundle": "^5.0",
         "weirdan/doctrine-psalm-plugin": "^1.0"
     },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
-    },
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Setono\\SyliusFragmentTranslationPlugin\\": "src/"
@@ -61,7 +54,19 @@
             "tests/Application/Kernel.php"
         ]
     },
-    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "dealerdirect/phpcodesniffer-composer-installer": false,
+            "symfony/thanks": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
     "scripts": {
         "analyse": [
             "@ensure-test-container-exists",
